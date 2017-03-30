@@ -1,0 +1,44 @@
+<div id="succAlert" class="alert alert-success alert-dismissible col-sm-8" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<p></p>
+</div>
+<div id="infoAlert" class="alert alert-info alert-dismissible col-sm-8" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div id="warnAlert" class="alert alert-warning alert-dismissible col-sm-8" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div id="errorAlert" class="alert alert-danger alert-dismissible col-sm-8" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+
+<script type="text/javascript">
+
+    function succAlert(message) {
+        alert("succAlert", message);
+    }
+    function infoAlert(message) {
+        alert("infoAlert", message);
+    }
+    function warnAlert(message) {
+        alert("warnAlert", message);
+    }
+    function errorAlert(message) {
+        alert("errorAlert", message);
+    }
+
+    function alert(id,message){
+	    var jid ="#" + id;
+        $(jid).children("p").empty();
+        $(jid).children("p").append(message);
+        $(jid).show();
+	}
+
+	function cleanAlert() {
+        $("div[role='alert']").each(function() {
+			$(this).children("p").empty();
+            $(this).hide();
+        });
+    }
+
+</script>
