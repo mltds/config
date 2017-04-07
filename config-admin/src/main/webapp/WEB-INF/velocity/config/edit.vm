@@ -1,0 +1,98 @@
+<form class="form-horizontal" action="/config/edit" method="post">
+    <div class="form-group">
+        <label for="app" class="col-sm-2 control-label">ID：</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="id" name="id" value="$!config.id" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="app" class="col-sm-2 control-label">应用：</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="app" name="app" value="$!config.app" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="app" class="col-sm-2 control-label">环境：</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="env" name="env" value="$!config.env" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="app" class="col-sm-2 control-label">名称：</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="name" name="name" value="$!config.name" readonly>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="type" class="col-sm-2 control-label">类型：</label>
+        <div class="col-sm-4">
+            <div class="radio radio-inline">
+                <label>
+                    <input type="radio" name="type" id="typeProperties" value="PROPERTIES" disabled
+                        #if($!config.type == "PROPERTIES")
+                           checked
+                        #end
+                    /> Properties
+                </label>
+            </div>
+            <div class="radio radio-inline">
+                <label>
+                    <input type="radio" name="type" id="typePlaintext" value="PLAINTEXT" disabled
+                        #if($!config.type == "PLAINTEXT")
+                           checked
+                        #end
+                    /> Plaintext
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="content" class="col-sm-2 control-label">内容：</label>
+        <div class="col-sm-4">
+            <textarea class="form-control" id="content" name="content" placeholder="配置内容" style="height:300px" >$!config.content</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="status" class="col-sm-2 control-label">状态：</label>
+        <div class="col-sm-4">
+            <div class="radio radio-inline">
+                <label>
+                    <input type="radio" name="status" id="statusEnabled" value="ENABLED"
+                        #if($!config.status == "ENABLED")
+                           checked
+                        #end
+                    /> Enabled
+                </label>
+            </div>
+            <div class="radio radio-inline">
+                <label>
+                    <input type="radio" name="status" id="statusDisabled" value="DISABLED"
+                        #if($!config.status == "DISABLED")
+                           checked
+                        #end
+                    /> Disabled
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button id="submitBtn" type="submit" class="btn btn-primary">修改配置</button>
+            <a id="backBtn" href="javascript:;" style="margin-left: 50px;">
+                返回
+            </a>
+        </div>
+    </div>
+</form>
+
+#parse("/layout/alert.vm")
+
+<script type="text/javascript">
+
+    $("#backBtn").click(function(){
+        var app = $("#app").val();
+        var env = $("#env").val();
+        window.location.href="/config/list?app=" + app + "&env=" + env;
+    });
+
+</script>

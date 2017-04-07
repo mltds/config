@@ -9,7 +9,6 @@ import java.util.Date;
 public class App {
     private Integer id;//数量应该不多，用个int足够了
     private String name;
-    private String desc;
     private String creator;
     private Date createTime;
     private Date modifyTime;
@@ -28,14 +27,6 @@ public class App {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public String getCreator() {

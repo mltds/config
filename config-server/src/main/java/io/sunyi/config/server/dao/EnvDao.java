@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public class EnvDao extends SqlSessionDaoSupport {
 
+    public int insert(Env env) {
+        return super.getSqlSession().insert("env.insert", env);
+    }
+
     @SuppressWarnings("unchecked")
     public List<Env> selectAll() {
         return (List<Env>) super.getSqlSession().selectList("env.selectAll");

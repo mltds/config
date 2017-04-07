@@ -1,0 +1,36 @@
+
+<form id="form" class="form-inline">
+
+    <button type="button" class="btn btn-info" onclick="add()">添加环境</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>应用名称</th>
+        <th>创建人</th>
+        <th>创建时间</th>
+    </tr>
+    </thead>
+    <tbody>
+		#foreach($env in $envs)
+        <tr>
+            <td>$env.id</td>
+            <td>$env.name</td>
+            <td>$env.creator</td>
+            <td>$!datetool.format('yyyy-MM-dd HH:mm:ss',$!env.createTime)</td>
+        </tr>
+		#end
+    </tbody>
+</table>
+
+#parse("/layout/alert.vm")
+
+<script type="text/javascript" >
+
+    function add() {
+        window.location.href = "/env/add";
+    }
+
+</script>

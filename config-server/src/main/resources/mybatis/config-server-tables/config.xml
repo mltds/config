@@ -52,8 +52,22 @@
 		</selectKey>
 	</insert>
 
-	<select id="selectByAppAndEnv" parameterType="map" resultMap="ConfigMap">
-		SELECT * FROM `config` WHERE `app` = #{app} and `env` = #{env} ORDER BY `id` DESC
+	<select id="selectByParam" parameterType="Config" resultMap="ConfigMap">
+		SELECT * FROM `config`
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="app != null">
+				AND `app` = #{app}
+			</if>
+			<if test="env != null">
+				AND `env` = #{env}
+			</if>
+			<if test="name != null">
+				AND `name` = #{name}
+			</if>
+			<if test="status != null">
+				AND `status` = #{status}
+			</if>
+		</trim>
 	</select>
 
 	<select id="selectById" parameterType="long" resultMap="ConfigMap">

@@ -1,0 +1,38 @@
+<form class="form-horizontal" action="/env/add" method="post">
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">名称：</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="name" name="name" placeholder="环境名称">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="submitBtn" type="submit" class="btn btn-primary">添加新环境</button>
+            <a id="backBtn" href="javascript:;" style="margin-left: 50px;">
+                返回
+            </a>
+        </div>
+    </div>
+</form>
+
+#parse("/layout/alert.vm")
+
+<script type="text/javascript">
+
+    $("form").submit(function(){
+
+        cleanAlert();
+
+        var name = $("#name").val()
+        if(name == ""){
+            warnAlert("请填写名称!")
+            return false;
+        }
+    });
+
+    $("#backBtn").click(function(){
+        history.go(-1);
+    });
+
+
+</script>

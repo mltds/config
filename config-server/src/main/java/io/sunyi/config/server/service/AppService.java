@@ -1,7 +1,6 @@
 package io.sunyi.config.server.service;
 
 import io.sunyi.config.commons.model.App;
-import io.sunyi.config.server.component.CacheComponent;
 import io.sunyi.config.server.dao.AppDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +20,18 @@ public class AppService {
     private AppDao appDao;
 
     @Autowired
-    private CacheComponent cacheComponent;
+    private UserService userService;
 
-    public App add(String name, String desc, String creator) {
+    public App add(String name) {
         Assert.hasText(name);
+
+        Date now  = new Date();
+
         App app = new App();
         app.setName(name);
-        app.setDesc(desc);
-        app.setCreator(creator);
-        app.setCreateTime(new Date());
-        app.setModifyTime(new Date());
+        app.setCreator(userService.getCurrentUser());
+        app.setCreateTime(now);
+        app.setModifyTime(now);
         appDao.insert(app);
         return app;
     }

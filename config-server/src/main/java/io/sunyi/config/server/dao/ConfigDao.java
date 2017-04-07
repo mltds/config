@@ -1,13 +1,12 @@
 package io.sunyi.config.server.dao;
 
 import io.sunyi.config.commons.model.Config;
+import io.sunyi.config.commons.model.ConfigStatus;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author sunyi
@@ -25,11 +24,21 @@ public class ConfigDao extends SqlSessionDaoSupport {
     }
 
     @SuppressWarnings("UncheckedExecutionException")
-    public List<Config> selectByAppAndEnv(String app, String env) {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("app", app);
-        map.put("env", env);
-        return (List<Config>) super.getSqlSession().selectList("config.selectByAppAndEnv", map);
+    public List<Config> selectByParam(String app, String env) {
+        return selectByParam(app, env, null, null);
+    }
+
+    public List<Config> selectByParam(String app, String env, String name) {
+        return selectByParam(app, env, name, null);
+    }
+
+    public List<Config> selectByParam(String app, String env, String name, ConfigStatus status) {
+        Config param = new Config();
+        param.setApp(app);
+        param.setEnv(env);
+        param.setName(name);
+        param.setStatus(status);
+        return (List<Config>) super.getSqlSession().selectList("config.selectByParam", param);
     }
 
     public int updateById(Config config) {

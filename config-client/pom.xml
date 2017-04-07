@@ -12,4 +12,12 @@
     <artifactId>config-client</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>io.sunyi.config</groupId>
+            <artifactId>config-commons</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
 </project>
