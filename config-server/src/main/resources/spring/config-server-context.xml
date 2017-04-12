@@ -9,7 +9,6 @@
 
     <context:component-scan base-package="io.sunyi.config.server.dao"/>
     <context:component-scan base-package="io.sunyi.config.server.service"/>
-    <context:component-scan base-package="io.sunyi.config.server.component"/>
 
 
 
