@@ -14,14 +14,16 @@ public abstract class PlaintextConfigService extends AbstractConfigService {
     /**
      * 获取最新的配置内容
      */
-    String getContent() {
+    public String getContent() {
         Config config = getConfig();
         return config == null ? null : config.getContent();
     }
 
     /**
+     * <ul>
      * <li>第一次加载配置时</li>
      * <li>当配置有变动时</li>
+     * </ul>
      * 会调用这个方法
      */
     abstract void callback(String content);

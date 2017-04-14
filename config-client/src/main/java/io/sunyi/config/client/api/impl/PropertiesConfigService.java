@@ -48,6 +48,7 @@ public abstract class PropertiesConfigService extends AbstractConfigService {
 
     /**
      * 获取 Properties 配置文件的某一项配置
+     *
      * @param key 文件中配置项的 key
      */
     public String getValue(String key) {
@@ -56,9 +57,12 @@ public abstract class PropertiesConfigService extends AbstractConfigService {
     }
 
     /**
-     * 当配置有变动时，会调用这个方法
-     * @param content
+     * <ul>
+     * <li>第一次加载配置时</li>
+     * <li>当配置有变动时</li>
+     * </ul>
+     * 会调用这个方法
      */
-   abstract void callback(Properties content);
+    abstract void callback(Properties content);
 
 }
