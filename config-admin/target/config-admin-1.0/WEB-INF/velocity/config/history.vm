@@ -1,0 +1,116 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="id" class="col-sm-2 control-label">ID:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!config.id</p>
+        </div>
+        <label for="name" class="col-sm-2 control-label">名称:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!config.name</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="app" class="col-sm-2 control-label">应用:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!config.app</p>
+        </div>
+        <label for="env" class="col-sm-2 control-label">环境:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!config.env</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="creator" class="col-sm-2 control-label">创建人:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!config.creator</p>
+        </div>
+        <label for="createTime" class="col-sm-2 control-label">创建时间:</label>
+        <div class="col-sm-4">
+            <p class="form-control-static">$!datetool.format('yyyy-MM-dd HH:mm:ss',$!config.createTime)</p>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th style="width: 30%"  >操作信息</th>
+        <th>操作后内容</th>
+    </tr>
+    </thead>
+    <tbody>
+		#foreach($history in $histories)
+        <tr>
+            <td>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%">ID：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!history.id</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%">操作人：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!history.operator</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%" >操作时间：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!datetool.format('yyyy-MM-dd HH:mm:ss',$!history.operateTime)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%" >操作类型：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!history.type</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%">操作后状态：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!history.status</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" style="width: 30%">操作后版本号：</label>
+                        <div class="col-sm-4" style="width: inherit">
+                            <p class="form-control-static">$!history.version</p>
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <textarea class="form-control" id="content-$!history.id" style="height:300px;width: 700px;" readonly>$!history.content</textarea>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+		#end
+    </tbody>
+</table>
+
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <a id="backBtn" href="javascript:;" style="margin-left: 50px;">
+                返回
+            </a>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+
+    $("#backBtn").click(function(){
+        var app = "$!config.app";
+        var env = "$!config.env";
+        window.location.href="/config/list?app=" + app + "&env=" + env;
+    });
+
+</script>

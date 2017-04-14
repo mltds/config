@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config">
+
+	<resultMap id="ConfigMap" type="Config">
+		<id column="id" property="id" />
+		<result column="app" property="app"/>
+		<result column="name" property="name"/>
+		<result column="env" property="env"/>
+		<result column="type" property="type" javaType="io.sunyi.config.commons.model.ConfigType" />
+		<result column="content" property="content"/>
+		<result column="status" property="status"/>
+		<result column="version" property="version"/>
+		<result column="creator" property="creator"/>
+		<result column="editor" property="editor"/>
+		<result column="create_time" property="createTime" />
+		<result column="modify_time" property="modifyTime" />
+	</resultMap>
+
+	<insert id="insert" parameterType="Config" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `config`(
+			`id`,
+			`app`,
+			`name`,
+			`env`,
+			`type`,
+			`content`,
+			`status`,
+			`version`,
+			`creator`,
+			`editor`,
+			`create_time`,
+			`modify_time`
+		)
+		VALUES (
+			#{id},
+			#{app},
+			#{name},
+			#{env},
+			#{type},
+			#{content},
+			#{status},
+			#{version},
+			#{creator},
+			#{editor},
+			#{createTime},
+			#{modifyTime}
+		)
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+	</insert>
+
+	<select id="selectByParam" parameterType="Config" resultMap="ConfigMap">
+		SELECT * FROM `config`
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="app != null">
+				AND `app` = #{app}
+			</if>
+			<if test="env != null">
+				AND `env` = #{env}
+			</if>
+			<if test="name != null">
+				AND `name` = #{name}
+			</if>
+			<if test="status != null">
+				AND `status` = #{status}
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectById" parameterType="long" resultMap="ConfigMap">
+		SELECT * FROM `config` WHERE id = #{id}
+	</select>
+
+
+	<update id="updateById" parameterType="Config">
+		UPDATE `config`
+		<set>
+			<if test="content != null">
+				`content` = #{content},
+			</if>
+			<if test="status != null">
+				`status` = #{status},
+			</if>
+			<if test="editor != null">
+				`editor` = #{editor},
+			</if>
+			<if test="modifyTime != null">
+				`modify_time` = #{modifyTime},
+			</if>
+			version = version + 1
+		</set>
+		WHERE id = #{id}
+	</update>
+
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM `config` WHERE id = #{id}
+	</delete>
+</mapper>
