@@ -1,27 +1,26 @@
 package io.sunyi.config.client.api.impl;
 
-import io.sunyi.config.commons.model.Config;
-
 import java.io.StringReader;
 import java.util.Properties;
+
+import io.sunyi.config.commons.exception.ConfigException;
+import io.sunyi.config.commons.model.Config;
+import io.sunyi.config.commons.utils.Message;
 
 /**
  * @author sunyi
  */
-public abstract class PropertiesConfigService extends AbstractConfigService {
+public abstract class PropertiesConfigService extends AbstractConfigService<Properties> {
 
     public PropertiesConfigService(String app, String env, String name) {
         super(app, env, name);
     }
 
-    /**
-     * 获取 Properties 配置文件内容
-     */
-    public Properties getContent() {
+    @Override
+    public Properties extractContent(Config config) {
         try {
             Properties properties = new Properties();
 
-            Config config = getConfig();
             if (config == null) {
                 return properties;
             }
@@ -36,13 +35,27 @@ public abstract class PropertiesConfigService extends AbstractConfigService {
             try {
                 properties.load(stringReader);
             } finally {
-                stringReader.close();//只是设置一下null
+                stringReader.close();// 只是设置一下null
             }
 
             return properties;
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            String message = Message.newMessage("获取 Properties 配置失败").info("ConfigInfo", getInfo()).toString();
+            throw new ConfigException(message, e);
+        }
+    }
+
+    /**
+     * 获取 Properties 配置文件内容
+     */
+    public Properties getContent() {
+        try {
+            Config config = getConfig();
+            return extractContent(config);
+        } catch (Exception e) {
+            String message = Message.newMessage("获取 Properties 配置失败").info("ConfigInfo", getInfo()).toString();
+            throw new ConfigException(message, e);
         }
     }
 
@@ -55,14 +68,5 @@ public abstract class PropertiesConfigService extends AbstractConfigService {
         Object o = getContent().get(key);
         return o == null ? null : o.toString();
     }
-
-    /**
-     * <ul>
-     * <li>第一次加载配置时</li>
-     * <li>当配置有变动时</li>
-     * </ul>
-     * 会调用这个方法
-     */
-    abstract void callback(Properties content);
 
 }

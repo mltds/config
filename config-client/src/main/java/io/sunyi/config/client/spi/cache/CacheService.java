@@ -1,16 +1,24 @@
 package io.sunyi.config.client.spi.cache;
 
 import io.sunyi.config.client.spi.SPI;
+import io.sunyi.config.commons.model.Config;
 
 /**
+ * 缓存服务
+ * <p>当在服务端获取数据状态为 {@link io.sunyi.config.commons.model.ResModel#CODE_NOT_MODIFIED}，由缓存服务提供数据</p>
+ * <p>当在服务端获取数据失败时，可能由缓存服务提供数据</p>
  * @author sunyi
  */
-public interface CacheService<K, V> extends SPI {
+public interface CacheService extends SPI {
 
-    V get(K k);
+    String buildKey(String app, String env, String name);
 
-    void set(K k, V v);
+    Config get(String key);
 
-    V del(K k);
+    void cache(Config config);
+
+    void set(String key,Config config);
+
+    Config del(String key);
 
 }

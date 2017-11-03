@@ -13,7 +13,7 @@
     }
 </style>
 
-<form id="form" class="form-inline" action="/config/list">
+<form id="form" class="form-inline" action="${ac.contextPath}/config/list">
     <div class="form-group">
         <label for="app"></label>
         <input type="text" list="appNames" class="form-control" id="app" name="app" placeholder="Application" value="$!app"  autocomplete="off">
@@ -33,12 +33,13 @@
 <div style="height: 50px"></div>
 #if($showNoAppWarn)
     <div class="alert alert-warning" role="alert">
-        <strong>Warning!</strong> 你还没有创建任何应用，可以前往<a href="/app/add" class="alert-link">应用管理</a>进行创建
+        <strong>Warning!</strong> 你还没有创建任何应用，可以前往<a href="${ac.contextPath}/app/add" class="alert-link">应用管理</a>进行创建
     </div>
 #end
+
 #if($showNoEnvWarn)
     <div class="alert alert-warning" role="alert">
-        <strong>Warning!</strong> 你还没有创建任何环境，可以前往<a href="/env/add" class="alert-link">环境管理</a>进行创建
+        <strong>Warning!</strong> 你还没有创建任何环境，可以前往<a href="${ac.contextPath}/env/add" class="alert-link">环境管理</a>进行创建
     </div>
 #end
 #if($showHelpInfo)
@@ -100,7 +101,7 @@
     }
 
     function add() {
-        $("#form").attr("action","/config/add");
+        $("#form").attr("action","${ac.contextPath}/config/add");
         $("#form").submit();
     }
 
@@ -108,14 +109,14 @@
         if(id == null || id == undefined) {
             return false;
         }
-        window.location.href= "/config/history?id=" + id
+        window.location.href= "${ac.contextPath}/config/history?id=" + id
     }
 
     function edit(id) {
         if(id == null || id == undefined) {
             return false;
         }
-        window.location.href= "/config/edit?id=" + id
+        window.location.href= "${ac.contextPath}/config/edit?id=" + id
     }
 
 </script>

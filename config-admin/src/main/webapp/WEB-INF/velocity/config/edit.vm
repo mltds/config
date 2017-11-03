@@ -1,4 +1,4 @@
-<form class="form-horizontal" action="/config/edit" method="post">
+<form class="form-horizontal" action="${ac.contextPath}/config/edit" method="post">
     <div class="form-group">
         <label for="app" class="col-sm-2 control-label">ID：</label>
         <div class="col-sm-4">
@@ -92,7 +92,7 @@
     $("#backBtn").click(function(){
         var app = $("#app").val();
         var env = $("#env").val();
-        window.location.href="/config/list?app=" + app + "&env=" + env;
+        window.location.href="${ac.contextPath}/config/list?app=" + app + "&env=" + env;
     });
 
 </script>

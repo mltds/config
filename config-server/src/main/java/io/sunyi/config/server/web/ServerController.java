@@ -1,7 +1,8 @@
 package io.sunyi.config.server.web;
 
-import io.sunyi.config.client.model.ReqModel;
-import io.sunyi.config.client.model.ResModel;
+import io.sunyi.config.commons.exception.ConfigException;
+import io.sunyi.config.commons.model.ReqModel;
+import io.sunyi.config.commons.model.ResModel;
 import io.sunyi.config.commons.model.Config;
 import io.sunyi.config.commons.model.ConfigStatus;
 import io.sunyi.config.server.dao.ConfigDao;
@@ -23,7 +24,7 @@ import java.util.List;
  * @author sunyi
  */
 @Controller
-@RequestMapping("/server")
+@RequestMapping("/server/api")
 public class ServerController {
 
     private Logger logger = LoggerFactory.getLogger(ServerController.class);
@@ -41,12 +42,13 @@ public class ServerController {
         ResModel resModel = new ResModel();
 
         try {
+
+            checkReqModel(reqModel);
+
             String app = reqModel.getApp();
             String env = reqModel.getEnv();
             String name = reqModel.getName();
             Integer version = reqModel.getVersion();
-
-            checkReqModel(reqModel);
 
             List<Config> configs = configDao.selectByParam(app, env, name);
             if (CollectionUtils.isEmpty(configs)) {
@@ -73,7 +75,7 @@ public class ServerController {
 
             return resModel;
 
-        } catch (IllegalArgumentException e) {
+        } catch (ConfigException e) {
             logger.warn(e.getMessage());
             resModel.setCode(ResModel.CODE_SERVER_ERROR);
             resModel.setErrorMessage(e.getMessage());
@@ -88,16 +90,20 @@ public class ServerController {
 
     private void checkReqModel(ReqModel reqModel) {
 
+        if (reqModel == null) {
+            throw new ConfigException("ReqModel 不能为空!");
+        }
+
         if (StringUtils.isBlank(StringUtils.trim(reqModel.getApp()))) {
-            throw new IllegalArgumentException("App 参数不能为空!");
+            throw new ConfigException("App 参数不能为空!");
         }
 
         if (StringUtils.isBlank(StringUtils.trim(reqModel.getEnv()))) {
-            throw new IllegalArgumentException("Env 参数不能为空!");
+            throw new ConfigException("Env 参数不能为空!");
         }
 
         if (StringUtils.isBlank(StringUtils.trim(reqModel.getName()))) {
-            throw new IllegalArgumentException("Name 参数不能为空!");
+            throw new ConfigException("Name 参数不能为空!");
         }
 
     }

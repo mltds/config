@@ -1,20 +1,20 @@
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-        <a class="navbar-brand" href="/">Config Server</a>
+        <a class="navbar-brand" href="${ac.contextPath}">Config Server</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul id="navBarUl" class="nav navbar-nav">
             <li id="configLi">
-                <a href="/config/list">配置管理</a>
+                <a href="${ac.contextPath}/config/list">配置管理</a>
             </li>
             <li id="appLi">
-                <a href="/app/list">应用管理</a>
+                <a href="${ac.contextPath}/app/list">应用管理</a>
             </li>
             <li id="envLi">
-                <a href="/env/list">环境管理</a>
+                <a href="${ac.contextPath}/env/list">环境管理</a>
             </li>
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -22,11 +22,11 @@
 
 <script>
     var pathname = window.location.pathname;
-    if(pathname.slice(0,11) == "/config"){
+    if(pathname.slice(0,11) == "${ac.contextPath}/config"){
         $("#configLi").addClass("active");
-    }else if(pathname.slice(0,8) == "/app"){
+    }else if(pathname.slice(0,8) == "${ac.contextPath}/app"){
         $("#appLi").addClass("active");
-    } else if(pathname.slice(0,8) == "/env"){
+    } else if(pathname.slice(0,8) == "${ac.contextPath}/env"){
         $("#envLi").addClass("active");
     }
 </script>

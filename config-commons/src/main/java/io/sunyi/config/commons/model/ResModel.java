@@ -1,4 +1,4 @@
-package io.sunyi.config.client.model;
+package io.sunyi.config.commons.model;
 
 import io.sunyi.config.commons.model.Config;
 
@@ -12,7 +12,7 @@ public class ResModel {
      */
     public static final int CODE_OK = 0;
     /**
-     * 版本号没有变动，以为着配置没有变动，可以信赖缓存
+     * 版本号没有变动，意味着配置没有变动，可以信赖缓存
      */
     public static final int CODE_NOT_MODIFIED = 1;
 
@@ -24,7 +24,6 @@ public class ResModel {
      * 没有找到对应的配置
      */
     public static final int CODE_NOT_FOUND = -2;
-
     /**
      * 对应的配置没有启动
      */

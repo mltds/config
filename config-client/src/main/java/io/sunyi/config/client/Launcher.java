@@ -1,6 +1,9 @@
 package io.sunyi.config.client;
 
 import io.sunyi.config.client.spi.SPI;
+import io.sunyi.config.client.spi.cache.impl.MemCacheService;
+import io.sunyi.config.commons.exception.ConfigException;
+import sun.misc.Unsafe;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +15,6 @@ import java.util.*;
  */
 public class Launcher {
 
-
     private static final int STATUS_NOT_STARTED = 0; // 未启动
     private static final int STATUS_STARTING = 1; //启动中
     private static final int STATUS_STARTED = 2;//已启动
@@ -22,9 +24,10 @@ public class Launcher {
     /**
      * Config Client 端启动<br/>
      * 包括加载配置文件，初始化 SPI Bean 等，可重复执行
+     * 这个方法是所有事情的第一步
      */
     public static synchronized void start() {
-        if (status == STATUS_STARTED) {
+        if (status != STATUS_NOT_STARTED) {
             return;
         }
 
@@ -33,15 +36,20 @@ public class Launcher {
         try {
             // 加载配置文件
             loadConfig();
+
             // 创建 Bean
             loadBean();
 
         } catch (Exception e) {
-            throw new RuntimeException("Config client 启动失败", e);
+            throw new ConfigException("Config client 启动失败", e);
         }
 
         status = STATUS_STARTED;
 
+    }
+
+    public static boolean isStarted() {
+        return status == STATUS_STARTED;
     }
 
 
@@ -79,6 +87,7 @@ public class Launcher {
 
         //IOC
         loadSpiConfig();
+
         Map<String, String> spiConfigs = Context.getInstance().getSpiConfigs();
         for (Map.Entry<String, String> spi : spiConfigs.entrySet()) {
 
@@ -107,10 +116,10 @@ public class Launcher {
         for (Object bean : values) {
             Field[] declaredFields = bean.getClass().getDeclaredFields();
             for (Field f : declaredFields) {
-                if (isExtends(f.getClass(), SPI.class)) {
+                if (isExtends(f.getType(), SPI.class)) {
                     boolean hasIpm = false;
                     for (Class<?> key : keys) {
-                        if (isExtends(key, f.getClass())) {
+                        if (isExtends(key, f.getType())) {
                             hasIpm = true;
                             if (!f.isAccessible()) {
                                 f.setAccessible(true);
@@ -120,7 +129,7 @@ public class Launcher {
                         }
                     }
                     if (!hasIpm) {
-                        throw new RuntimeException("没有找到Bean:" + bean.getClass() + "的属性:" + f.getName() + "的实现");
+                        throw new ConfigException("没有找到Bean:" + bean.getClass() + "的属性:" + f.getName() + "的实现");
                     }
                 }
             }
@@ -160,7 +169,8 @@ public class Launcher {
 
     public static void main(String args[]) {
 
-        start();
+        System.out.println(isExtends(MemCacheService.class,SPI.class));
+
 
     }
 }

@@ -5,7 +5,7 @@ package io.sunyi.config.client;
  */
 public interface Constants {
 
-    /********************* Config File 配置文件相关***********************/
+    /********************* Config File 配置文件相关, 都是放在 classpath 下 ***********************/
     /**
      * 常规配置项文件
      */
@@ -24,20 +24,27 @@ public interface Constants {
      */
     String C_F_SPI_DEFAULT_NAME = "/configclient.spi.default.properties"; //
 
+    /********************* Config Key 配置项的Key ***********************/
+    /**
+     * 服务端接口协议，例如：<code>http</code>
+     */
+    String C_K_SERVER_API_PROTOCOL = "SERVER_API_PROTOCOL";
 
-    /********************* Config Key 配置项的Key***********************/
     /**
-     * 服务端 HTTP 接口的路径
+     * 服务端接口host地址，例如：<code>192.168.1.11</code>
      */
-    String C_K_SERVER_HTTP_API_PATH = "SERVER_HTTP_API_PATH";
+    String C_K_SERVER_API_HOST = "SERVER_API_HOST";
+
     /**
-     * 是否必须为最新的配置:
-     * <ul>
-     * <li>true: 如果没有从 server 端获取或验证过，则报错</li>
-     * <li>false: 如果从 server 端获取或验证失败，则使用缓存中的数据</li>
-     * </ul>
+     * 服务端接口端口号，例如：<code>8080</code>
      */
-    String C_K_REQUIRED_LATEST = "REQUIRED_LATEST";
+    String C_K_SERVER_API_PORT = "SERVER_API_PORT";
+
+    /**
+     * 服务端接口路径，例如：<code>/server/config</code>
+     */
+    String C_K_SERVER_API_FILE = "SERVER_API_FILE";
+
 
     /**
      * 当没有找到配置时:
@@ -45,7 +52,13 @@ public interface Constants {
      * <li>true: 抛出异常报错</li>
      * <li>false: 不抛出异常</li>
      * </ul>
+     * 找不到配置的原因有可能是网络问题、Config服务端问题、配置问题等
      */
     String C_K_REQUIRED = "REQUIRED";
+
+    /**
+     * 拉取数据的时间间隔
+     */
+    String C_K_PULL_INTERVAL_TIME_MS = "PULL_INTERVAL_TIME_MS";
 
 }

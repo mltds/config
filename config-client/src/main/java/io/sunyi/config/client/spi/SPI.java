@@ -5,4 +5,5 @@ package io.sunyi.config.client.spi;
  * @author sunyi
  */
 public interface SPI {
+
 }

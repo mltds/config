@@ -21,7 +21,7 @@ public class Message {
     }
 
     public Message info(Object infoName, Object infoValue) {
-        info.put(infoName, infoName);
+        info.put(infoName, infoValue);
         return this;
     }
 
@@ -33,14 +33,14 @@ public class Message {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(message);
-        builder.append(".");
+        builder.append("。");
         Set<Map.Entry<Object, Object>> entries = info.entrySet();
         for (Map.Entry<Object, Object> entry : entries) {
             builder.append(entry.getKey());
             builder.append(":[");
             builder.append(entry.getValue());
             builder.append("]");
-            builder.append(".");
+            builder.append("。");
         }
 
         if (e != null) {
@@ -48,7 +48,7 @@ public class Message {
             builder.append(":[");
             builder.append(e.getMessage());
             builder.append("]");
-            builder.append(".");
+            builder.append("。");
         }
 
         return builder.toString();

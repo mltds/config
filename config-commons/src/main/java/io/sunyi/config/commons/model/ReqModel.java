@@ -1,4 +1,4 @@
-package io.sunyi.config.client.model;
+package io.sunyi.config.commons.model;
 
 import com.alibaba.fastjson.JSON;
 
@@ -52,14 +52,5 @@ public class ReqModel {
                 ", name='" + name + '\'' +
                 ", version=" + version +
                 '}';
-    }
-
-    public static void main(String args[]) {
-        ReqModel req = new ReqModel();
-        req.setApp("B");
-        req.setEnv("UAT");
-        req.setName("ConfigName1680");
-
-        System.out.println(JSON.toJSONString(req, true));
     }
 }

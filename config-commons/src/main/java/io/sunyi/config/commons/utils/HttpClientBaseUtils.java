@@ -44,7 +44,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 创建这个类是因为...有时候需要得到{@link org.apache.http.StatusLine#getStatusCode()}
+ * 创建这个类是因为有时候需要得到{@link org.apache.http.StatusLine#getStatusCode()}
  * 如果只需要获取ResponseBody中的内容，直接使用{@link HttpClientUtils}
  *
  * @author kongyi
@@ -141,9 +141,6 @@ public abstract class HttpClientBaseUtils {
      * @param connTimeout 建立链接超时时间,毫秒.
      * @param readTimeout 响应超时时间,毫秒.
      * @return An {@link HttpResponse}
-     *
-     * @throws ConnectTimeoutException
-     * @throws SocketTimeoutException
      */
     public static HttpResponseWrapper postForm(String uri, Map<String, String> params, Map<String, String> headers, String charset, Integer connTimeout, Integer readTimeout) throws GeneralSecurityException, IOException {
         CloseableHttpClient client = null;
@@ -270,9 +267,6 @@ public abstract class HttpClientBaseUtils {
 
     /**
      * 从 response 里获取 charset
-     *
-     * @param response
-     * @return
      */
     @SuppressWarnings("unused")
     private static String getCharsetFromResponse(HttpResponse response) {

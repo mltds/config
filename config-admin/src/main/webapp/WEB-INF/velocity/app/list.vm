@@ -30,7 +30,7 @@
 <script type="text/javascript" >
 
     function add() {
-        window.location.href = "/app/add";
+        window.location.href = "${ac.contextPath}/app/add";
     }
 
 </script>

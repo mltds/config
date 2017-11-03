@@ -110,7 +110,7 @@
     $("#backBtn").click(function(){
         var app = "$!config.app";
         var env = "$!config.env";
-        window.location.href="/config/list?app=" + app + "&env=" + env;
+        window.location.href="${ac.contextPath}/config/list?app=" + app + "&env=" + env;
     });
 
 </script>
