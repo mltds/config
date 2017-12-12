@@ -1,3 +1,4 @@
 jdbc.properties
+.DS_Store
 *.iml
 target\

@@ -1,26 +1,17 @@
-/**
- * Copyright (C), 2011-2017, 微贷网.
- */
 package io.sunyi.config.client.test;
+
+import java.io.IOException;
+
+import org.junit.Test;
 
 import io.sunyi.config.client.Context;
 import io.sunyi.config.client.Launcher;
 import io.sunyi.config.client.api.impl.PlaintextConfigService;
-import io.sunyi.config.client.api.impl.PropertiesConfigService;
 import io.sunyi.config.client.spi.core.CoreService;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Properties;
 
 /**
  * @author sunyi 2017/11/3.
  */
-
 
 public class MainTests {
 
